@@ -37,8 +37,8 @@ public class appState extends Login {
     }
 
     public void disarmApp() {
-    	if(User != false) {
-    		Intent intent = new Intent(getApplicationContext(), Login.class);
+    	   if(User != false) {
+    		   Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
             email = String.valueOf(editTextEmail.getText());
             password = String.valueOf(editTextPassword.getText());
