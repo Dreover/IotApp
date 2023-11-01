@@ -24,7 +24,7 @@ public class appState extends Login {
    
 
    
-    public void armApp() {
+    public void armApp(View view) {
         
         
         if(User != false){
@@ -32,16 +32,28 @@ public class appState extends Login {
             startActivity(intent);
             email = String.valueOf(editTextEmail.getText());
             password = String.valueOf(editTextPassword.getText());
+         if (Toast.TextUtils.isEmpty(password)){
+            Toast.makeText(armApp.this, "Enter Password" Toast.LENGTH_SHORT).show();
+            return;
             finish();
         }
     }
 
-    public void disarmApp() {
+    public void disarmApp(@NonNull Task<AuthResult> task ) {
     	   if(User != false) {
     		   Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
             email = String.valueOf(editTextEmail.getText());
             password = String.valueOf(editTextPassword.getText());
-            finish();	
+         }
+          if(task.isSuccessful()){
+             Toast.makeText(getApplicationContext(), "Login success", Toast.LENGTH_SHORT).show();
+             Intent intent = new Intent(getApplicationContext(), Login.class);
+             finish();
+             }else{
+                Toast.makeText(armApp.this, "No Authentication", Toast.LENGTH_SHORT).show();
+          }
+            
+            	
     	}
     }
