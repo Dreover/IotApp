@@ -63,6 +63,15 @@ class MyAdapter(private val context: Context, private val dataList: List<MyData>
                     // Start the second activity
                     context.startActivity(intent)
                 }
+                else if (selectedItem=="View Camera"){
+
+                    DbOpps.getCameraData(associatedText,context)
+                    // Create an Intent object
+                    val intent = Intent(context, ViewCamera::class.java)
+                    // Put the string into the Intent using a key-value pair
+                    intent.putExtra("CameraName", associatedText)
+                    context.startActivity(intent)
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

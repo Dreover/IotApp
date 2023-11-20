@@ -22,29 +22,3 @@ class MainActivity : NavigationPane() {
 
     }
 }
-
-
-/*
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
-}
- */
-
-/*
-        val mAuth = FirebaseAuth.getInstance()
-
-        val database = FirebaseDatabase.getInstance()
-        val ref = database.reference.child("Users")
-
-            val userID = mAuth.currentUser!!.uid
-            val currentUser = ref.child(userID)
-
-            currentUser.child("middleName").setValue("pippin")
-            currentUser.child("Cameras").child("Camera1").child("Camera Name").setValue("bedroom")
- */
