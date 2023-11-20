@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.RecyclerView
-
+import android.content.Intent
 
 
 class MyAdapter(private val context: Context, private val dataList: List<MyData>) :
@@ -51,6 +51,17 @@ class MyAdapter(private val context: Context, private val dataList: List<MyData>
 
                 if (selectedItem=="Remove Camera") {
                     DbOpps.removeCameras(associatedText,context)
+                }
+                else if (selectedItem=="Edit Connection Settings"){
+                   DbOpps.getCameraData(associatedText,context)
+                    // Create an Intent object
+                    val intent = Intent(context, AddCamera::class.java)
+
+                    // Put the string into the Intent using a key-value pair
+                    intent.putExtra("CameraName", associatedText)
+
+                    // Start the second activity
+                    context.startActivity(intent)
                 }
             }
 

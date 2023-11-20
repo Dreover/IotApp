@@ -24,14 +24,59 @@ class DbOpps {
             DbOpps.refreshActivity(context)
         }
 
+        fun getCameraData(cameraToFind : String, context:Context){
+            val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
+
+            // Get the current user ID
+            val userId: String = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+
+            // Reference to the Cameras node for the current user
+            val camerasReference = databaseReference.child("Users").child(userId).child("Cameras").child(cameraToFind)
+
+            val dataList = mutableListOf<MyData>()
+
+            // Add a ValueEventListener to retrieve the camera names
+            camerasReference.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (cameraSnapshot in snapshot.children) {
+                        val cameraSettings = cameraSnapshot.value
+
+                        //add camera name to list
+                        println(cameraSettings)
+                       if (cameraSnapshot.key == "IP Address")
+                           IPAddress = cameraSettings.toString()
+                       else if (cameraSnapshot.key == "Location")
+                           cameraLocation = cameraSettings.toString()
+                       else if (cameraSnapshot.key == "Port Number")
+                           portNumber = cameraSettings.toString()
+                    }
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle the onCancelled event (even if it's empty for now)
+                }
+
+            })
+
+        }
+
+        fun clearCameraSettings(){
+            DbOpps.cameraLocation = ""
+            DbOpps.IPAddress = ""
+            DbOpps.portNumber = ""
+        }
+
         fun refreshActivity(context: Context) {
             val intent = Intent(context, UserCameras::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
         }
 
-        // filler static property
-        val staticProperty: String = "Static property value"
+        // static property
+        var cameraLocation: String? = ""
+        var IPAddress: String? = ""
+        var portNumber: String? = ""
     }
 
 

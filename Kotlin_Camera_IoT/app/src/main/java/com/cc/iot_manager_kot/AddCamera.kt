@@ -32,6 +32,16 @@ class AddCamera : NavigationPane() {
         val view = binding.root
         setContentView(view)
 
+        // Retrieve the string from the Intent
+        val receivedString = intent.getStringExtra("CameraName")
+        if( receivedString != "") {
+            binding.cameraName.setText(receivedString)
+            binding.cameraLocation.setText(DbOpps.cameraLocation)
+            binding.ipAddress.setText(DbOpps.IPAddress)
+            binding.portNumber.setText(DbOpps.portNumber)
+            DbOpps.clearCameraSettings()
+        }
+
         val mDrawerLayout:DrawerLayout = findViewById(R.id.drawer_layout)
         onCreateDrawer(mDrawerLayout)
 
@@ -47,9 +57,6 @@ class AddCamera : NavigationPane() {
         val newCameraLocation = binding.cameraLocation.text.toString()
         val newIPAddress = binding.ipAddress.text.toString()
         val newPortNumber = binding.portNumber.text.toString()
-        val cameraOn = "1"
-        val ObjectDetectionOn = "0"
-        val notificationsOn = "1"
 
         if (TextUtils.isEmpty(newCameraName)) {
             Toast.makeText(this, "Please enter a Camera Name", Toast.LENGTH_LONG).show()
@@ -85,9 +92,6 @@ class AddCamera : NavigationPane() {
                 currentUser.child("Location").setValue(newCameraLocation)
                 currentUser.child("IP Address").setValue(newIPAddress)
                 currentUser.child("Port Number").setValue(newPortNumber)
-                currentUser.child("Webcam Enabled").setValue(cameraOn)
-                currentUser.child("Object Detection Enabled").setValue(ObjectDetectionOn)
-                currentUser.child("Notifications Enabled").setValue(notificationsOn)
 
                 Toast.makeText(this, "Successful", Toast.LENGTH_LONG).show()
 
