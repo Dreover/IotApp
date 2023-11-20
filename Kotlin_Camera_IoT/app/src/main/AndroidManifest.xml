@@ -16,6 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ViewCamera"
+            android:exported="false" />
+        <activity
             android:name=".AddCamera"
             android:exported="false" />
         <activity
